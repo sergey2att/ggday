@@ -5,7 +5,7 @@ import com.ggday.scraper.proxy.HttpProxy;
 import com.ggday.scraper.proxy.ProxyRotator;
 import com.ggday.scraper.proxy.RotationStrategy;
 import com.google.common.base.Preconditions;
-import content_type.*;
+import com.ggday.content_type.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

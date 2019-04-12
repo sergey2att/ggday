@@ -1,7 +1,7 @@
 package com.ggday.scraper.proxy;
 
-import html.elements.HtmlRow;
-import html.elements.HtmlTable;
+import com.ggday.html.elements.HtmlRow;
+import com.ggday.html.elements.HtmlTable;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

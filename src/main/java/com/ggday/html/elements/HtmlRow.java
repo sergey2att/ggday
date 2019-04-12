@@ -1,4 +1,4 @@
-package html.elements;
+package com.ggday.html.elements;
 
 import org.jsoup.nodes.Element;
 

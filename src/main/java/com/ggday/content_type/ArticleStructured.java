@@ -1,4 +1,4 @@
-package content_type;
+package com.ggday.content_type;
 
 
 public class ArticleStructured extends Article {
