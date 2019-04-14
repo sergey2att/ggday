@@ -47,9 +47,9 @@ public class Scraper {
         this.proxyRotator = new ProxyRotator(new FreeProxyScraper(), RotationStrategy.REFRESH);
     }
 
-    public void parse() {
+    public Article parse() {
         Elements articles = document.body().getElementsByTag("article");
-        Article res;
+        Article res = null;
         if (articles.size() > 0) {
             PageType type = parseType(articles.first().attr("class"));
             if (type == PageType.ARTICLE_PORTFOLIO) {
@@ -61,11 +61,11 @@ public class Scraper {
             }
             if (type == PageType.ARTICLE_STRUCTURED) {
                 res = parseArticleStructured();
-                String s = "";
             }
 
         }
-        String primaryImage;
+        Preconditions.checkNotNull(res, "Can't find article");
+        return res;
     }
 
     private ArticlePortfolio parseArticlePortfolio() {
@@ -74,9 +74,9 @@ public class Scraper {
         Elements itemWrapper = document.body().getElementsByAttributeValueContaining("class", "ordered-list--portfolioTemplate");
         if (itemWrapper.size() > 0) {
             itemWrapper.first().getElementsByTag("li").forEach(li -> {
-                String subtitle = li.getElementsByClass("ordered-list__header").first().text();
+                String subtitle = handleText(li.getElementsByClass("ordered-list__header").first());
                 String image = parserImage(li.getElementsByClass("img-placeholder").first().getElementsByTag("img").first());
-                String description = handleDescription(li.getElementsByAttributeValueContaining("id", "list-item__description_").first());
+                String description = handleText(li.getElementsByAttributeValueContaining("id", "list-item__description_").first());
                 items.add(new ArticleListItem(subtitle, image, description));
             });
         }
@@ -88,13 +88,13 @@ public class Scraper {
         String title = parseTitle();
         String primaryImage = parserImage(document.getElementById("primary-media_1-0").getElementsByClass("img-placeholder")
                 .first().getElementsByTag("img").first());
-        String headerText = handleDescription(document.getElementsByAttributeValueContaining("id", "article-intro--shown_").first());
+        String headerText = handleText(document.getElementsByAttributeValueContaining("id", "article__header--portfolio").first());
         Elements itemWrapper = document.body().getElementsByAttributeValueContaining("id", "ordered-list--structured");
         if (itemWrapper.size() > 0) {
             itemWrapper.first().getElementsByTag("li").forEach(li -> {
-                String subtitle = li.getElementsByClass("ordered-list__header").first().text();
+                String subtitle = handleText(li.getElementsByClass("ordered-list__header").first());
                 String image = parserImage(li.getElementsByClass("img-placeholder").first().getElementsByTag("img").first());
-                String description = handleDescription(li.getElementsByClass("ordered-list__content-description").first());
+                String description = handleText(li.getElementsByClass("ordered-list__content-description").first());
                 items.add(new ArticleListItem(subtitle, image, description));
             });
         }
@@ -106,12 +106,12 @@ public class Scraper {
         Element wrapper = Preconditions.checkNotNull(document.body().getElementsByClass("article__body").first());
         String primaryImage = parserImage(wrapper.getElementById("primary-media_1-0").getElementsByClass("img-placeholder")
                 .first().getElementsByTag("img").first());
-        String description = handleDescription(wrapper.getElementsByClass("chop-content").first());
+        String description = handleText(wrapper.getElementsByClass("chop-content").first());
         return new ArticleStructured(title, primaryImage, description);
     }
 
-    private String handleDescription(Element descriptionElement) {
-        String description = Preconditions.checkNotNull(descriptionElement, "Description is null").html();
+    private String handleText(Element textElement) {
+        String description = Preconditions.checkNotNull(textElement, "Description is null").html();
         Document.OutputSettings settings = new Document.OutputSettings();
         settings.escapeMode(Entities.EscapeMode.xhtml);
         Whitelist whitelist = Whitelist.relaxed();
@@ -142,7 +142,7 @@ public class Scraper {
     private String parseTitle() {
         Element title = Preconditions.checkNotNull(document.body().getElementsByClass("heading__title").first(),
                 "title is null");
-        return title.text().trim();
+        return handleText(title);
     }
 
     private String parserImage(Element img) {
@@ -228,5 +228,4 @@ public class Scraper {
             throw new RuntimeException("Can't get url: " + connection.response().url().toString() + e);
         }
     }
-
 }

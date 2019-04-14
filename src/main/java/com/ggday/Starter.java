@@ -1,11 +1,24 @@
-package com.ggday.scraper;
+package com.ggday;
 
+import com.ggday.scraper.Scraper;
+import com.ggday.utils.FTPClient;
 import org.apache.commons.cli.*;
 
 public class Starter {
     public static void main(String[] args) {
 
-        Options options = new Options();
+       /*FTPClient ftpClient = new FTPClient("zsergeyu.beget.tech");
+       if (ftpClient.login("", "")) {
+           if (ftpClient.openPublicFilesDirectory()) {
+               if (ftpClient.createTodayImageDirectory()) {
+                   System.out.println(ftpClient.getCurrentDirectoryPath());
+               }
+           }
+
+           String p = ftpClient.getCurrentDirectoryPath();
+       }*/
+
+         Options options = new Options();
 
         Option input = new Option("u", "url", true, "input document url");
         input.setRequired(true);
