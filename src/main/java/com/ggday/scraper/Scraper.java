@@ -40,8 +40,6 @@ public class Scraper {
     private final Document document;
     private final ProxyRotator proxyRotator;
 
-    private Article article;
-
     public Scraper(String url) {
         this.document = getHtmlDocument(url);
         this.proxyRotator = new ProxyRotator(new FreeProxyScraper(), RotationStrategy.REFRESH);

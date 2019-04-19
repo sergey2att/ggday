@@ -1,12 +1,17 @@
 package com.ggday;
 
+import com.ggday.rest_api.RestManager;
+import com.ggday.rest_api.dto.DrupalElementDTO;
 import com.ggday.scraper.Scraper;
-import com.ggday.utils.FTPClient;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.apache.commons.cli.*;
 
 public class Starter {
-    public static void main(String[] args) {
 
+    private static final RestManager restManager = new RestManager();
+
+    public static void main(String[] args) {
        /*FTPClient ftpClient = new FTPClient("zsergeyu.beget.tech");
        if (ftpClient.login("", "")) {
            if (ftpClient.openPublicFilesDirectory()) {
@@ -37,8 +42,11 @@ public class Starter {
         }
         String url = cmd.getOptionValue("url");
 
-        Scraper scraper = new Scraper(url);
-        scraper.parse();
+       // Scraper scraper = new Scraper(url);
+       // scraper.parse();
+        JsonObject data = new JsonObject();
+       restManager.callService(url, DrupalElementDTO.class);
+
 
 
     }
