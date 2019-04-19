@@ -27,3 +27,7 @@ hs_err_pid*
 .gradle/
 .idea/
 /src/main/resources/config.properties
+build/tmp/
+out/production/classes/META-INF/
+out/production/resources/
+src/test/
