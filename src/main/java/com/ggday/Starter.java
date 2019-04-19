@@ -3,6 +3,7 @@ package com.ggday;
 import com.ggday.rest_api.RestManager;
 import com.ggday.rest_api.dto.DrupalElementDTO;
 import com.ggday.scraper.Scraper;
+import com.ggday.utils.BasicAuthenticator;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.apache.commons.cli.*;
@@ -10,6 +11,7 @@ import org.apache.commons.cli.*;
 public class Starter {
 
     private static final RestManager restManager = new RestManager();
+    public static final BasicAuthenticator basicAuthenticator = new BasicAuthenticator();
 
     public static void main(String[] args) {
        /*FTPClient ftpClient = new FTPClient("zsergeyu.beget.tech");
