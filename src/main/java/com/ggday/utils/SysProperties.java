@@ -20,6 +20,7 @@ public class SysProperties {
     }
     public static final String SITE_LOGIN = "site.login";
     public static final String SITE_PASSWORD = "site.password";
+    public static final String HOST = "main.host";
 
     public static String getProperty(String name) {
         return Optional.ofNullable(System.getProperty(name))

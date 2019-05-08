@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class AttributesDTO extends DTO {
     @SerializedName(value = "drupal_internal__id", alternate = {"drupal_internal__nid", "drupal_internal__fid"})
-    private int drupalInternalId;
+    private Integer drupalInternalId;
 
     @SerializedName("drupal_internal__revision_id")
     private Integer drupalInternalRevisionId;
@@ -21,11 +21,15 @@ public class AttributesDTO extends DTO {
     @SerializedName("parent_field_name")
     private String parentFieldName;
 
-    @SerializedName(value = "field_opisanie", alternate = {"body"})
     private TextAreaDTO body;
 
-    @SerializedName(value = "title", alternate={ "field_zagolovok" })
+    @SerializedName("field_body")
+    private TextAreaDTO paragraphBody;
+
     private String title;
+
+    @SerializedName("field_subtitle")
+    private String paragraphTitle;
 
     private String filename;
     private String filemime;
@@ -33,29 +37,15 @@ public class AttributesDTO extends DTO {
     @SerializedName("field_image_alt_text")
     private String altText;
 
-    public AttributesDTO(int drupalInternalId, Integer drupalInternalVid, Integer drupalInternalRevisionId, Integer parentId, String parentType, String parentFieldName, TextAreaDTO body, String title, String filename, String filemime, String altText) {
-        this.drupalInternalId = drupalInternalId;
-        this.drupalInternalVid = drupalInternalVid;
-        this.drupalInternalRevisionId = drupalInternalRevisionId;
-        this.parentId = parentId;
-        this.parentType = parentType;
-        this.parentFieldName = parentFieldName;
-        this.body = body;
-        this.title = title;
-        this.filename = filename;
-        this.filemime = filemime;
-        this.altText = altText;
-    }
-
-    public int getDrupalInternalId() {
+    public Integer getDrupalInternalId() {
         return drupalInternalId;
     }
 
-    public int getDrupalInternalRevisionId() {
+    public Integer getDrupalInternalRevisionId() {
         return drupalInternalRevisionId;
     }
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
@@ -71,8 +61,16 @@ public class AttributesDTO extends DTO {
         return body;
     }
 
+    public TextAreaDTO getParagraphBody() {
+        return paragraphBody;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public String getParagraphTitle() {
+        return paragraphTitle;
     }
 
     public String getFilename() {
@@ -89,5 +87,114 @@ public class AttributesDTO extends DTO {
 
     public Integer getDrupalInternalVid() {
         return drupalInternalVid;
+    }
+
+
+    public static class Builder {
+        private Integer drupalInternalId;
+        private Integer drupalInternalRevisionId;
+        private Integer drupalInternalVid;
+        private Integer parentId;
+        private String parentType;
+        private String parentFieldName;
+        private TextAreaDTO body;
+        private TextAreaDTO paragraphBody;
+        private String title;
+        private String paragraphTitle;
+        private String filename;
+        private String filemime;
+        private String altText;
+
+        public Builder() {
+
+        }
+
+        public Builder drupalInternalId(Integer id) {
+            this.drupalInternalId = id;
+            return this;
+        }
+
+        public Builder drupalInternalRevisionId(Integer drupalInternalRevisionId) {
+            this.drupalInternalRevisionId = drupalInternalRevisionId;
+            return this;
+        }
+
+        public Builder drupalInternalVid(Integer drupalInternalVid) {
+            this.drupalInternalVid = drupalInternalVid;
+            return this;
+        }
+
+        public Builder parentId(Integer parentId) {
+            this.parentId = parentId;
+            return this;
+        }
+
+
+        public Builder parentType(String parentType) {
+            this.parentType = parentType;
+            return this;
+        }
+
+        public Builder parentFieldName(String parentFieldName) {
+            this.parentFieldName = parentFieldName;
+            return this;
+        }
+
+        public Builder body(TextAreaDTO body) {
+            this.body = body;
+            return this;
+        }
+
+        public Builder paragraphBody(TextAreaDTO paragraphBody) {
+            this.paragraphBody = paragraphBody;
+            return this;
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder paragraphTitle(String paragraphTitle) {
+            this.paragraphTitle = paragraphTitle;
+            return this;
+        }
+
+
+        public Builder filename(String filename) {
+            this.filename = filename;
+            return this;
+        }
+
+        public Builder filemime(String filemime) {
+            this.filemime = filemime;
+            return this;
+        }
+
+        public Builder altText(String altText) {
+            this.altText = altText;
+            return this;
+        }
+
+        public AttributesDTO build() {
+            AttributesDTO attributesDTO = new AttributesDTO();
+            attributesDTO.drupalInternalId = this.drupalInternalId;
+            attributesDTO.drupalInternalRevisionId = this.drupalInternalRevisionId;
+            attributesDTO.drupalInternalVid = this.drupalInternalVid;
+            attributesDTO.parentId = this.parentId;
+            attributesDTO.parentType = this.parentType;
+            attributesDTO.parentFieldName = this.parentFieldName;
+            attributesDTO.body = this.body;
+            attributesDTO.paragraphBody = this.paragraphBody;
+            attributesDTO.title = this.title;
+            attributesDTO.paragraphTitle = this.paragraphTitle;
+            attributesDTO.filename = this.filename;
+            attributesDTO.filemime = this.filemime;
+            attributesDTO.altText = this.altText;
+            return attributesDTO;
+        }
+    }
+
+    private AttributesDTO() {
     }
 }

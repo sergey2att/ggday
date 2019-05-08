@@ -3,7 +3,7 @@ package com.ggday.content_type;
 public class Article {
     private final String title;
 
-    protected Article(String title) {
+    public Article(String title) {
         this.title = title;
     }
 

@@ -8,7 +8,6 @@ public class ProxyRotator {
     private Queue<HttpProxy> proxies = new ArrayDeque<>();
     private final RotationStrategy strategy;
     private final ProxyProvided provider;
-    private HttpProxy current = null;
     private int counter = 1;
     private Iterator<HttpProxy> iterator;
 
@@ -20,6 +19,7 @@ public class ProxyRotator {
     }
 
     public HttpProxy rotate() {
+        HttpProxy current;
         switch (strategy) {
             case REFRESH: {
                 if (counter >= proxies.size()) {
@@ -41,7 +41,7 @@ public class ProxyRotator {
                 }
             }
             default:
-                throw new UnsupportedOperationException(String.format("Strategy '%s' does not supported", strategy.name()));
+                throw new UnsupportedOperationException(String.format("Strategy '%s' is not supported", strategy.name()));
         }
     }
 

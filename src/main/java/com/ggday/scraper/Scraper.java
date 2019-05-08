@@ -55,7 +55,6 @@ public class Scraper {
             }
             if (type == PageType.ARTICLE_LIST) {
                 res = parseArticleList();
-                String s = "";
             }
             if (type == PageType.ARTICLE_STRUCTURED) {
                 res = parseArticleStructured();
@@ -188,6 +187,11 @@ public class Scraper {
                         .header("Content-Language", "ru-RU").execute();
                 if (response.statusCode() != 200 && response.statusCode() != 404) {
                     System.out.println("Incorrect response status code: " + response.statusCode());
+                    continue;
+                }
+                if (response.body().contains("400 Bad Request")) {
+                    System.out.println("Incorrect response: 400 Bad Request");
+                    continue;
                 }
                 return  response.parse().text();
 
